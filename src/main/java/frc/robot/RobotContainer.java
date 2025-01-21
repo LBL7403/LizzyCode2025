@@ -85,9 +85,10 @@ public class RobotContainer {
         // reset the field-centric heading on left bumper press
         joystick.povUp().onTrue(drivetrain.runOnce(()-> drivetrain.seedFieldCentric()));
         
+        
     //        joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
     */
-
+    
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
@@ -95,7 +96,7 @@ public class RobotContainer {
         return Commands.print("No autonomous command configured");
     }  
 
-    public static void fieldReset(){ 
-        
+    public void fieldReset(){ 
+        drivetrain.seedFieldCentric();
     }
 }

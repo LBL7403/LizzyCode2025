@@ -123,7 +123,7 @@ public final class Constants {
     
     public static final class Swerve {
 
-        public static final double speedP = .3;
+        public static final double speedP = .2;
         //public static final double maxAngularRate = 1.5;
 
     }
