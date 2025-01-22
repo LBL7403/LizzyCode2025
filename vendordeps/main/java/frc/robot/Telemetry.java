@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
-import frc.robot.Constants.Swerve;
 
 public class Telemetry {
     private final double MaxSpeed;
@@ -29,8 +28,8 @@ public class Telemetry {
      * 
      * @param maxSpeed Maximum speed in meters per second
      */
-    public Telemetry() {
-        MaxSpeed = Swerve.speedP;
+    public Telemetry(double maxSpeed) {
+        MaxSpeed = maxSpeed;
         SignalLogger.start();
     }
 
@@ -77,10 +76,6 @@ public class Telemetry {
         m_moduleMechanisms[3].getRoot("RootDirection", 0.5, 0.5)
             .append(new MechanismLigament2d("Direction", 0.1, 0, 0, new Color8Bit(Color.kWhite))),
     };
-
-    public MechanismLigament2d[] getDirections(){
-        return m_moduleDirections;
-    }
 
     private final double[] m_poseArray = new double[3];
     private final double[] m_moduleStatesArray = new double[8];

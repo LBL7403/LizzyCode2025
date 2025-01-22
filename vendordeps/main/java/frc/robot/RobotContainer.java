@@ -9,35 +9,32 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
-import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.Constants.Swerve;
+
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class RobotContainer {
-    private double MaxSpeed = Swerve.speedP*TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = 0.2*TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
-    private SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+    private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.2).withRotationalDeadband(MaxAngularRate * 0.2) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-    private static TunerConstants a = new TunerConstants();
-    private final Telemetry logger = new Telemetry();
+
+    private final Telemetry logger = new Telemetry(MaxSpeed);
+
     private final PS5Controller joystick = new PS5Controller(0);
     //private final CommandXboxController joystick = new CommandXboxController(0);
 
@@ -59,9 +56,8 @@ public class RobotContainer {
             )
         );
 
-        JoystickButton fieldResetButton = new JoystickButton(joystick, PS5Controller.Button.kCircle.value);
-        Command fieldResetCommand = new InstantCommand(() -> fieldReset());
-        fieldResetButton.onTrue(fieldResetCommand);
+     //   JoystickButton fieldResetButton = new JoystickButton(joystick, PS5Controller.Button.kCircle.value);
+      //  fieldResetButton.whileTrue(drive.
 
         JoystickButton pointToDirection = new JoystickButton(joystick, PS5Controller.Button.kSquare.value);
     pointToDirection.whileTrue(drivetrain.applyRequest(() ->
@@ -93,9 +89,5 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         return Commands.print("No autonomous command configured");
-    }  
-
-    public static void fieldReset(){ 
-        
     }
 }
