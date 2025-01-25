@@ -95,7 +95,7 @@ public class RobotContainer {
         return Commands.print("No autonomous command configured");
     }  
 
-    public static void fieldReset(){ 
-        
+    public void fieldReset(){ 
+        drivetrain.seedFieldCentric();
     }
 }
