@@ -59,6 +59,7 @@ public final class Constants {
     public static final class LiftConstants 
     {
         public static final int MOTOR_ID = 20;
+        public static final int MOTOR_ID1 = 21;
         //max output at shooter class
         public static final double kMaxAbsOutput = 1;
         //max output at robot container class for going up
@@ -91,6 +92,43 @@ public final class Constants {
         public static final int TIMEOUT_MS = 30;
 
         public static final double speed = 1;
+        public static final double setPoint =.5;
+        ////
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public static final double kShootPos = -350;
         public static final double kUnderChainPos = 0;
