@@ -6,6 +6,10 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.util.List;
+
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -29,7 +33,8 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 public class RobotContainer {
     private double MaxSpeed = Swerve.speedP*TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
+    private PhotonCamera camera = new PhotonCamera("photonvision");
+    private boolean hasTargets =false;
     /* Setting up bindings for necessary control of the swerve drive platform */
     private SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.2).withRotationalDeadband(MaxAngularRate * 0.2) // Add a 10% deadband
@@ -42,11 +47,23 @@ public class RobotContainer {
     //private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-
+    
     public RobotContainer() {
         configureBindings();
     }
+    public void aprilTag()
+    {
+        
+         var result = camera.getLatestResult();
+         
+        if(result.hasTargets())  {
+            List<PhotonTrackedTarget> targets = result.getTargets();
+            PhotonTrackedTarget target = result.getBestTarget();
+           
 
+        }
+    }
+    
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
@@ -62,6 +79,8 @@ public class RobotContainer {
         JoystickButton fieldResetButton = new JoystickButton(joystick, PS5Controller.Button.kCircle.value);
         Command fieldResetCommand = new InstantCommand(() -> fieldReset());
         fieldResetButton.onTrue(fieldResetCommand);
+        aprilTag();////////////////////////needs to be elswhere
+        
 
         JoystickButton pointToDirection = new JoystickButton(joystick, PS5Controller.Button.kSquare.value);
     pointToDirection.whileTrue(drivetrain.applyRequest(() ->
