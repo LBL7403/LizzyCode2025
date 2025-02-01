@@ -29,9 +29,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.Swerve;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-
+import frc.robot.subsystems.Elevator;
 public class RobotContainer {
-    private double MaxSpeed = Swerve.speedP*TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = Constants.Swerve.speedP*TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     private PhotonCamera camera = new PhotonCamera("photonvision");
     private boolean hasTargets =false;
@@ -45,7 +45,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry();
     private final PS5Controller joystick = new PS5Controller(0);
     //private final CommandXboxController joystick = new CommandXboxController(0);
-
+    private final Elevator elev = new Elevator();
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     
     public RobotContainer() {
@@ -80,6 +80,14 @@ public class RobotContainer {
         Command fieldResetCommand = new InstantCommand(() -> fieldReset());
         fieldResetButton.onTrue(fieldResetCommand);
         aprilTag();////////////////////////needs to be elswhere
+
+        JoystickButton raiseElevatorButton = new JoystickButton(joystick, PS5Controller.Button.kTriangle.value);
+        Command raiseECommand = new InstantCommand(() -> elev.setElevatorEncoder(100));
+        raiseElevatorButton.onTrue(raiseECommand);
+
+        JoystickButton moveElevator = new JoystickButton(joystick, PS5Controller.Button.kCross.value);
+        Command moveECommand = new InstantCommand(() -> elev.moveElevator());
+        moveElevator.whileTrue(moveECommand);
         
 
         JoystickButton pointToDirection = new JoystickButton(joystick, PS5Controller.Button.kSquare.value);

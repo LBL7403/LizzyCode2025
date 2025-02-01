@@ -39,8 +39,26 @@ public final class Constants {
     public static final class ShooterConstants 
      {
 
-        public static final int MOTOR_1_ID = 18;  //MAKE SURE TO SWAP THE ID AGAIN
-        public static final int MOTOR_2_ID = 19;
+        //public static final int MOTOR_1_ID = ;  //MAKE SURE TO SWAP THE ID AGAIN
+        //public static final int MOTOR_2_ID = ;
+        ///
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+
+
+
+
+
+
+
+
         //max output at shooter class
         public static final double kMaxAbsOutput = 1;
         //max output at robot container class for high shot
@@ -100,11 +118,7 @@ public final class Constants {
         /// 
         /// 
         /// 
-        /// 
-        /// 
-        /// 
-        /// 
-
+        
 
 
 
@@ -131,10 +145,57 @@ public final class Constants {
 
 
         public static final double kShootPos = -350;
-        public static final double kUnderChainPos = 0;
-
-        
+        public static final double kUnderChainPos = 0;    
     }
+    
+    public static final class ElevatorConstants 
+    {
+        public static final int MOTOR_ID = 18;
+        public static final int MOTOR_ID1 = 19;
+        //max output at shooter class
+        public static final double kMaxAbsOutput = 1;
+        //max output at robot container class for going up
+        public static final double kMaxAbsOutputRBUp = 1;
+        //max output at robot container class for going down
+        public static final double kMaxAbsOutputRBDown = -1;
+
+        public static final int peakCurrentLimit = 30; // the peak current, in amps
+
+        public static final int peakCurrentDuration = 1500; // the time at the peak current before the limit triggers, in ms
+
+        public static final int continuousCurrentLimit = 28; // the current to maintain if the peak limit is triggered
+        
+        public static final double kPMoving = 0.02;
+        public static final double kIMoving = 0.0000003;
+        public static final double kDMoving = 0.0000018;
+        public static final double kIzMoving = 30.0;
+        public static final double kFFMoving = 0.0;
+
+        public static final double kPHolding = 0.1;
+        public static final double kIHolding = 0.0;
+        public static final double kDHolding = 0.0;
+        public static final double kFHolding = 0.0;
+
+        public static final int ENCODER_PORT_A = 1;
+        public static final int ENCODER_PORT_B = 2;
+
+        public static final boolean REVERSE_ENCODER = false;
+
+        public static final int TIMEOUT_MS = 30;
+
+        public static final double speed = 1;
+        public static final double setPoint =.5;
+        ////
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
 
     public static final class PS4GamePad{
 
@@ -158,12 +219,13 @@ public final class Constants {
 
 
     }
-    
-    public static final class Swerve {
 
+    }
+
+    public static final class Swerve 
+    {
         public static final double speedP = .2;
-        //public static final double maxAngularRate = 1.5;
-
+        //public static final dou2ble maxAngularRate = 1.5;
     }
 
     // Constantes del ejemplo auto, las cuales deben de estar especificadas a cada robot
