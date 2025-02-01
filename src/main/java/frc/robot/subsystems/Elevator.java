@@ -44,12 +44,15 @@ public class Elevator extends SubsystemBase {
   private Solenoid m_finalSolenoid;
 
   private SparkMaxConfig elevatorConfig = new SparkMaxConfig();
-  private SparkMaxConfig config = new SparkMaxConfig();
+  //private SparkMaxConfig config = new SparkMaxConfig();
 
 
   public Elevator() {
+    
+        
     elevator_motor1 = new SparkMax(Constants.ElevatorConstants.MOTOR_ID, MotorType.kBrushless);
     elevator_motor2 = new SparkMax(Constants.ElevatorConstants.MOTOR_ID1, MotorType.kBrushless);
+    /* 
     config.follow(elevator_motor1);
     config.inverted(true);
         config.signals.primaryEncoderPositionPeriodMs(5);
@@ -61,8 +64,11 @@ public class Elevator extends SubsystemBase {
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .pid(1.0, 0.0, 0.0);
+         elevator_motor2.configure(config, null, null);
 
-    elevator_motor2.configure(config, null, null);
+    */
+
+   
     
   
     SparkFlex m_motor = new SparkFlex(20, MotorType.kBrushless);
@@ -79,7 +85,7 @@ public class Elevator extends SubsystemBase {
 
     pidElevatorController = elevator_motor1.getClosedLoopController();
 
-    m_controller.setReference(Constants.ElevatorConstants.setPoint, ControlType.kPosition);
+  // m_controller.setReference(Constants.ElevatorConstants.setPoint, ControlType.kPosition);
 
    
     //liftConfig.closedLoop.setClosedLoopRampRate(1); If the robot breaks its probbably this
