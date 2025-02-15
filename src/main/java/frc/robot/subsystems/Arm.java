@@ -8,6 +8,7 @@ public class Arm extends Command implements Subsystem {
     private boolean hasMoved;
     public Arm(){
 
+
     }
 
     @Override
