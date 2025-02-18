@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -30,7 +31,31 @@ import frc.robot.Constants.Swerve;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 public class RobotContainer {
+
+
+
+    // Aquí creamos un objeto selectorAuto que se encargará de elegir el comando autónomo.
+    // Ten en cuenta que, si se añaden varias opciones y no se especifica una predeterminada,
+    // se seleccionará una de forma aleatoria.
+    private final SendableChooser<Command> selectorAuto = AutoBuilder.buildAutoChooser();
+
+    // Aquí estamos creando un nuevo camino para que el selectorAuto pueda seleccionarlo.
+    // Ten en cuenta que el parámetro autoName debe coincidir exactamente con el nombre definido en la GUI.
+    Command autoCaminoEjemplo = new PathPlannerAuto("Camino Ejemplo");
+
+
+
+
+
+
+
+
+
     private double MaxSpeed = Constants.Swerve.speedP*TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     private PhotonCamera camera = new PhotonCamera("photonvision");
@@ -49,8 +74,19 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     
     public RobotContainer() {
-        configureBindings();
+    // Se puede añadir una opción usando el método addOption (esto se aplica a un objeto SendableChooser).
+    // Esta opción se agrega como alternativa, pero si no se especifica una opción por defecto,
+    // se seleccionará una de forma aleatoria.
+    selectorAuto.addOption("Camino Ejemplo", autoCaminoEjemplo);
+
+    // También se puede establecer una opción predeterminada con setDefaultOption,
+    // garantizando que se seleccione dicha opción si no se elige otra.
+    configureBindings();
+
     }
+
+
+
     public void aprilTag()
     {
         
@@ -120,7 +156,8 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        // Selecciona la opción predeterminada (o una al azar si no se especificó una) y retorna el comando autónomo seleccionado.
+        return selectorAuto.getSelected();
     }  
 
     public void fieldReset(){ 
